@@ -64,8 +64,8 @@ ws.onmessage = function(evt) {
 --*/
 
 // ----- use socket.io ---
-let port = 3002;
-let socket = io.connect('http://localhost:' + port + '/');
+let port = 3000;
+let socket = io.connect('https://192.168.129.96:' + port + '/');
 let room = getRoomName();
 socket.on('connect', function(evt) {
   console.log('socket.io connected. enter room=' + room );
