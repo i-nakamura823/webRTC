@@ -13,24 +13,32 @@ const httpsServer = createServer({
 const io = new Server({httpsServer})
 httpsServer.listen(port);
 
-io.sockets.on('connection', (socket) => {
-  
-  console.log("new connection : " + socket);
+io.on('connection', (socket) => {
 
   socket.on('enter', (roomname) => {
-    socket.set('roomname', roomname);
-    socket.join(roomname);
+      socket.join(roomname);
+      console.log('id=' + socket.id + ' enter room=' + roomname);
+      setRoomname(roomname);
   });
 
-  cosket.on('message', (msg) => {
+  function setRoomname(room) {
+    socket.roomname = room;
+  }
+
+  function getRoomname() {
+    let room = socket.roomname;
+    return room;
+  }
+
+  socket.on('message', (msg) => {
 
     console.log("echo > " + msg);
     msg.from = socket.id;
 
     // 送信先の指定
-    const target = msg.sendto;
+    let target = msg.sendto;
     if(target) {
-      io.sockets.socket(target).emit('message', message);
+      socket.to(target).emit('message', msg);
       return;
     }
     // 指定が無ければブロードキャスト
@@ -38,18 +46,24 @@ io.sockets.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
-    emitMessage('user disconnected');
+    emitMessage('user disconnected', {id: socket.id});
+    let roomname = getRoomname();
+    if (roomname) {
+      socket.leave(roomname);
+    }
   })
 
-  function emitMessage(type, msg){
-    let roomname;
-    socket.get('roomname', (err, _room) => {
-      roomname = _room;
-    })
-    if(roomname){
-      socket.broadcast.to(roomname).emit(type, msg);
-    }else{
-      socket.broadcast.emit(type, msg);
+  function emitMessage(type, message) {
+    // ----- multi room ----
+    var roomname = getRoomname();
+
+    if (roomname) {
+      console.log('===== message broadcast to room -->' + roomname);
+      socket.broadcast.to(roomname).emit(type, message);
+    }
+    else {
+      console.log('===== message broadcast all');
+      socket.broadcast.emit(type, message);
     }
   }
 })
