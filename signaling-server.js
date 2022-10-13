@@ -14,12 +14,17 @@ const io = new Server({httpsServer})
 httpsServer.listen(port);
 
 io.sockets.on('connection', (socket) => {
+  
+  console.log("new connection : " + socket);
+
   socket.on('enter', (roomname) => {
     socket.set('roomname', roomname);
     socket.join(roomname);
   });
 
   cosket.on('message', (msg) => {
+
+    console.log("echo > " + msg);
     msg.from = socket.id;
 
     // 送信先の指定
