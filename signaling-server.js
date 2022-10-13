@@ -11,7 +11,7 @@ const httpsServer = createServer({
 
 // const wssServer = new WebSocketServer({server});
 const io = new Server({httpsServer})
-server.listen(port);
+httpsServer.listen(port);
 
 io.sockets.on('connection', (socket) => {
   socket.on('enter', (roomname) => {
