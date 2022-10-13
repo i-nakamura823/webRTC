@@ -1,3 +1,5 @@
+"use strict";
+
 const {createServer} = require('https');
 const {readFileSync} = require('fs');
 // const WebSocketServer = require('ws').Server;
