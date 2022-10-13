@@ -2,10 +2,10 @@
 <html>
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title>Hand Signaling</title>
+ <title>n対n通信</title>
 </head>
 <body>
-  Hand Signaling 2016<br />
+  n対nで通信できるかな<br />
   <button type="button" onclick="startVideo();">Start Video</button>
   <button type="button" onclick="stopVideo();">Stop Video</button>
   &nbsp;
@@ -13,17 +13,14 @@
   <button type="button" onclick="hangUp();">Hang Up</button> 
   <div>
     <video id="local_video" autoplay style="width: 160px; height: 120px; border: 1px solid black;"></video>
-    <video id="remote_video" autoplay style="width: 160px; height: 120px; border: 1px solid black;"></video>
   </div>
-  <p>SDP to send:<br />
-    <textarea id="text_for_send_sdp" rows="5" cols="60" readonly="readonly">SDP to send</textarea>
-  </p>
-  <p>SDP to receive:&nbsp;
-    <button type="button" onclick="onSdpText();">Receive remote SDP</button><br />
-    <textarea id="text_for_receive_sdp" rows="5" cols="60"></textarea>
-  </p>
+  <div id="container">
+    
+  </div>
 </body>
-<script type="text/javascript">
+<script src="https://192.168.129.96:3000/socket.io/socket.io.js"></script>
+<script src="multi_client.js"></script>
+<!-- <script type="text/javascript">
   let localVideo = document.getElementById('local_video');
   let remoteVideo = document.getElementById('remote_video');
   let localStream = null;
@@ -278,5 +275,5 @@
     }
   }
 
-</script>
+</script> -->
 </html>
