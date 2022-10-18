@@ -41,26 +41,32 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('create or join', function(room) {
     log('Received request to create or join room ' + room);
-
     console.log('create or room : ' + room);
 
-    // TODO
-    // ルームが存在していても入れない
-    // 新しく作ってしまう
+    // FIN
+    // 原因 : ルームに入っているクライアントをMapから取得できない
+    // ↑ オープンソースのミスだからあってるかわからない。
+    // 対処 : rooms.get(room)に変更 ＋ 送るときにSet型からArray型に変更 
+    // before が変更前、上が変更後
 
-    var clientsInRoom = io.sockets.adapter.rooms[room];
-    var numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0;
+    var clientsInRoom = io.sockets.adapter.rooms.get(room);
+    // before : var clientsInRoom = io.sockets.adapter.rooms[room];
+    var numClients = clientsInRoom ? clientsInRoom.length : 0;
+    // before : var numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0;
+    console.log(numClients);
+
     log('Room ' + room + ' now has ' + numClients + ' client(s)');
 
     if (numClients === 0) {
       socket.join(room);
+      // console.log("members : " + Array.from(io.sockets.adapter.rooms.get(room)));
       log('Client ID ' + socket.id + ' created room ' + room);
       socket.emit('created', room, socket.id);
     } else {
       log('Client ID ' + socket.id + ' joined room ' + room);
       socket.join(room);
-
-      socket.emit('joined', room, socket.id, Object.keys(clientsInRoom.sockets));
+      socket.emit('joined', room, socket.id, Array.from(clientsInRoom));
+      // before : socket.emit('joined', room, socket.id, Object.keys(clientsInRoom.sockets));
 
       // Create connection
       socket.to(room).emit('ready', socket.id);
