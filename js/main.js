@@ -204,3 +204,16 @@ callButton.addEventListener('click', callAction)
 hangupButton.addEventListener('click', hangupAction)
 sendButton.addEventListener('click', sendAction)
 
+
+
+// -----------------------------
+// my extension
+// -----------------------------
+
+const copyButton = document.getElementById('copyButton');
+copyButton.addEventListener('click', copyURL);
+
+function copyURL() {
+  console.log(window.location.href);
+  navigator.clipboard.writeText(window.location.href);
+}
