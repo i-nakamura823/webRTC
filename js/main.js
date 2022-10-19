@@ -112,6 +112,10 @@ let localStream
 let stream = {}
 stream.gotRemoteMediaStream = gotRemoteMediaStream
 
+// TODO 
+// stream = navigate...に変更する
+// そうするとhintの適用が簡単になる？
+
 // Sets the MediaStream as the video element src.
 function gotLocalMediaStream(mediaStream) {
   console.log('check!!!!!');
@@ -229,4 +233,27 @@ copyButton.addEventListener('click', copyURL);
 function copyURL() {
   console.log(window.location.href);
   navigator.clipboard.writeText(window.location.href);
+}
+
+const motionButton = document.getElementById('motionButton');
+const detailButton = document.getElementById('detailButton');
+const noButton = document.getElementById('noButton');
+motionButton.addEventListener('click', changeHint('motion'));
+detailButton.addEventListener('click', changeHint('detail'));
+noButton.addEventListener('click', changeHint(''));
+
+function changeHint(hint) {
+  console.log(hint);
+//   const tracks = localStream.getVideoTracks();
+//   tracks.forEach(track => {
+//     if('contentHint' in track){
+//       track.contentHint = hint;
+//       if(track.contentHint !== hint){
+//         console.log('motion : Invalid video track contentHint');
+//       }
+//       console.log('ヒント : ' + track.contentHint);
+//     }else{
+//       console.log('MediaStreamTrack contentHint attribute not supported.');
+//     }
+//   })
 }
