@@ -2,10 +2,18 @@ body {
   font-family: sans-serif;
 }
 
-video {
-  max-width: 100%;
-  width: 320px;
 
+video#localVideo {
+  max-width: 50%;
+  background-color: aquamarine;
+}
+
+
+video {
+  max-width: 50%;
+  margin: 1px;
+  background-color: burlywood;
+  /* width: 320px; */
 }
 
 #localVideoArea {
