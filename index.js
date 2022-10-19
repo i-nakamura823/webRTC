@@ -2,7 +2,7 @@
 
 var os = require('os');
 var nodeStatic = require('node-static');
-var http = require('http');
+// var http = require('http');
 const socketIO = require('socket.io');
 // const socketIO = new Server(8080);
 const https = require('https');
@@ -41,7 +41,7 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('create or join', function(room) {
     log('Received request to create or join room ' + room);
-    console.log('create or room : ' + room);
+    // console.log('create or room : ' + room);
 
     // FIN
     // 原因 : ルームに入っているクライアントをMapから取得できない
@@ -53,7 +53,7 @@ io.sockets.on('connection', function(socket) {
     // before : var clientsInRoom = io.sockets.adapter.rooms[room];
     var numClients = clientsInRoom ? clientsInRoom.length : 0;
     // before : var numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0;
-    console.log(numClients);
+    // console.log(numClients);
 
     log('Room ' + room + ' now has ' + numClients + ' client(s)');
 
