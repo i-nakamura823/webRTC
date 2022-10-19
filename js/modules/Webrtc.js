@@ -36,6 +36,11 @@ export default class Webrtc {
       }
     };
 
+    
+    // TODO
+    // addStreamは現在非推奨
+    // addTrack() or addTransceiver()に変更するべし
+
     if (stream) {
       this.peerConns[socketId].addStream(stream.localStream);
       this.peerConns[socketId].addEventListener('addstream', stream.gotRemoteMediaStream);
