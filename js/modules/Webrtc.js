@@ -42,7 +42,10 @@ export default class Webrtc {
     // addTrack() or addTransceiver()に変更するべし
 
     if (stream) {
-      this.peerConns[socketId].addStream(stream.localStream);
+      stream.localStream.getTracks().forEach(track => {
+        this.peerConns[socketId].addTrack(track, stream.localStream);
+      });
+      // this.peerConns[socketId].addStream(stream.localStream);
       this.peerConns[socketId].addEventListener('addstream', stream.gotRemoteMediaStream);
     }
 
