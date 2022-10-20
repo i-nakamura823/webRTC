@@ -118,19 +118,19 @@ stream.gotRemoteMediaStream = gotRemoteMediaStream
 
 // Sets the MediaStream as the video element src.
 function gotLocalMediaStream(mediaStream) {
-  console.log('check!!!!!');
-  const tracks = mediaStream.getVideoTracks();
-  tracks.forEach(track => {
-    if('contentHint' in track){
-      track.contentHint = 'motion';
-      if(track.contentHint !== 'motion'){
-        console.log('motion : Invalid video track contentHint');
-      }
-      console.log('ヒント : ' + track.contentHint);
-    }else{
-      console.log('MediaStreamTrack contentHint attribute not supported.');
-    }
-  })
+  // console.log('check!!!!!');
+  // const tracks = mediaStream.getVideoTracks();
+  // tracks.forEach(track => {
+  //   if('contentHint' in track){
+  //     track.contentHint = 'motion';
+  //     if(track.contentHint !== 'motion'){
+  //       console.log('motion : Invalid video track contentHint');
+  //     }
+  //     console.log('ヒント : ' + track.contentHint);
+  //   }else{
+  //     console.log('MediaStreamTrack contentHint attribute not supported.');
+  //   }
+  // })
   localVideo.srcObject = mediaStream
   localStream = mediaStream
   trace('Received local stream.')

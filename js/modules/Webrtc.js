@@ -43,6 +43,16 @@ export default class Webrtc {
 
     if (stream) {
       stream.localStream.getTracks().forEach(track => {
+        console.log('check!!!!!');
+        if('contentHint' in track){
+          track.contentHint = 'detail';
+          if(track.contentHint !== 'detail'){
+            console.log('motion : Invalid video track contentHint');
+          }
+          console.log('ヒント : ' + track.contentHint);
+        }else{
+          console.log('MediaStreamTrack contentHint attribute not supported.');
+        }
         this.peerConns[socketId].addTransceiver(track, {
           streams : [stream.localStream],
           });
