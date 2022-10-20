@@ -117,7 +117,7 @@ stream.gotRemoteMediaStream = gotRemoteMediaStream
 // そうするとhintの適用が簡単になる？
 
 // Sets the MediaStream as the video element src.
-function gotLocalMediaStream(mediaStream) {
+function gotLocalMediaStream(mediaStream, hint) {
   // console.log('check!!!!!');
   // const tracks = mediaStream.getVideoTracks();
   // tracks.forEach(track => {
@@ -137,6 +137,7 @@ function gotLocalMediaStream(mediaStream) {
   callButton.disabled = false  // Enable call button.
 
   stream.localStream = localStream
+  stream.contentHint = hint;  // streamにヒントを渡す
 }
 
 // Handles error by logging a message to the console.
@@ -170,10 +171,19 @@ function onDataChannelCreated(dataChannel) {
 
 
 // Handles start button action: creates local MediaStream.
-function startAction() {
+async function startAction(hint) {
+  // contentHintを受け取るように修正
   startButton.disabled = true
-  navigator.mediaDevices.getUserMedia(mediaStreamConstraints)
-    .then(gotLocalMediaStream).catch(handleLocalMediaStreamError)
+  try{
+    const sss = await navigator.mediaDevices.getUserMedia(mediaStreamConstraints);
+    gotLocalMediaStream(sss, hint);
+  } catch (error){
+    handleLocalMediaStreamError(error);
+  }
+  // try-catch文に書き換え
+  // → 引数を分かりやすくするため
+  // navigator.mediaDevices.getUserMedia(mediaStreamConstraints)
+  //   .then(gotLocalMediaStream).catch(handleLocalMediaStreamError)
   trace('Requesting local stream.')
 }
 
@@ -238,22 +248,22 @@ function copyURL() {
 const motionButton = document.getElementById('motionButton');
 const detailButton = document.getElementById('detailButton');
 const noButton = document.getElementById('noButton');
-motionButton.addEventListener('click', changeHint('motion'));
-detailButton.addEventListener('click', changeHint('detail'));
-noButton.addEventListener('click', changeHint(''));
+// motionButton.disabled = true;
+// detailButton.disabled = true;
+// noButton.disabled = true;
+motionButton.addEventListener('click', startActuionMotion);
+detailButton.addEventListener('click', startActuionDetail);
+noButton.addEventListener('click', startActuionNohint);
 
-function changeHint(hint) {
-  console.log(hint);
-//   const tracks = localStream.getVideoTracks();
-//   tracks.forEach(track => {
-//     if('contentHint' in track){
-//       track.contentHint = hint;
-//       if(track.contentHint !== hint){
-//         console.log('motion : Invalid video track contentHint');
-//       }
-//       console.log('ヒント : ' + track.contentHint);
-//     }else{
-//       console.log('MediaStreamTrack contentHint attribute not supported.');
-//     }
-//   })
+function startActuionMotion() {
+  console.log('motion で startSction を呼びます');
+  startAction('motion');
+}
+function startActuionDetail() {
+  console.log('detail で startSction を呼びます');
+  startAction('detail');
+}
+function startActuionNohint() {
+  console.log('nohint で startSction を呼びます');
+  startAction('');
 }

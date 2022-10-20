@@ -45,17 +45,18 @@ export default class Webrtc {
       stream.localStream.getTracks().forEach(track => {
         console.log('check!!!!!');
         if('contentHint' in track){
-          track.contentHint = 'detail';
-          if(track.contentHint !== 'detail'){
-            console.log('motion : Invalid video track contentHint');
+          track.contentHint = stream.contentHint;
+          if(track.contentHint !== stream.contentHint){
+            console.log(stream.contentHint + ' : Invalid video track contentHint');
           }
           console.log('ヒント : ' + track.contentHint);
         }else{
           console.log('MediaStreamTrack contentHint attribute not supported.');
         }
-        this.peerConns[socketId].addTransceiver(track, {
-          streams : [stream.localStream],
-          });
+        this.peerConns[socketId].addTrack(track, stream.localStream);
+        // this.peerConns[socketId].addTransceiver(track, {
+        //   streams : [stream.localStream],
+        // });
       });
       // this.peerConns[socketId].addStream(stream.localStream);
       this.peerConns[socketId].addEventListener('addstream', stream.gotRemoteMediaStream);
