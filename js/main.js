@@ -87,7 +87,12 @@ socket.on('bye', function(socketId) {
 });
 
 const mediaStreamConstraints = {
-  video: true,
+  // video: true
+  video: {
+    width: {ideal: 3840},
+    height: {ideal: 2160},
+    frameRate: {ideal: 60},
+  },
 }
 
 const localVideo = document.getElementById('localVideo')
