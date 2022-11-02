@@ -93,6 +93,11 @@ const mediaStreamConstraints = {
     height: {ideal: 2160},
     frameRate: {ideal: 60},
   },
+  // video: {
+  //   width: 3840,
+  //   height: 2160,
+  //   frameRate: 60,
+  // },
 }
 
 const localVideo = document.getElementById('localVideo')
@@ -142,7 +147,7 @@ function gotLocalMediaStream(mediaStream, hint) {
   callButton.disabled = false  // Enable call button.
 
   stream.localStream = localStream
-  stream.contentHint = hint;  // streamにヒントを渡す
+  // stream.contentHint = 'detail';  // streamにヒントを渡す
 }
 
 // Handles error by logging a message to the console.
