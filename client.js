@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // グローバル変数
 //-----------------------------------------------------------------------------
-const WSS_URL      = "wss://192.168.129.96:3000"; // WebSocketServerのURL
+const WSS_URL      = "wss://192.168.130.118:3000"; // WebSocketServerのURL
 let server         = null;
 let peerConnection = null;
 
@@ -140,7 +140,15 @@ function onIceCandidate (e)
 // カメラ関係
 async function wakeupVideo() 
 {
-  const config = {video:true, audio:false};
+  // const config = {video:true, audio:false};
+  config = {
+    video: {
+      width: {ideal: 3840},
+      height: {ideal: 2160},
+      frameRate: {ideal: 60},
+    },
+    audio: false
+  };
 
   const stream = await navigator.mediaDevices.getUserMedia(config);
 
