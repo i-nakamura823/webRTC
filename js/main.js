@@ -147,7 +147,7 @@ function gotLocalMediaStream(mediaStream, hint) {
   callButton.disabled = false  // Enable call button.
 
   stream.localStream = localStream
-  // stream.contentHint = 'detail';  // streamにヒントを渡す
+  // stream.contentHint = 'motion';  // streamにヒントを渡す
 }
 
 // Handles error by logging a message to the console.

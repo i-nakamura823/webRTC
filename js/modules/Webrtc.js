@@ -72,6 +72,8 @@ export default class Webrtc {
 
       console.log('Creating an offer');
       this.peerConns[socketId].createOffer(function (desc) {
+        // 帯域の制限？
+        desc.sdp = setMediaBitrates(desc.sdp, 120000);
         console.log('local session created:', desc);
         self.peerConns[socketId].setLocalDescription(desc, function() {
           console.log('sending local desc:', self.peerConns[socketId].localDescription);
@@ -95,6 +97,7 @@ export default class Webrtc {
     this.peerConns[senderId].setRemoteDescription(new RTCSessionDescription(message), function() {},this.logError);
 
     this.peerConns[senderId].createAnswer(function (desc) {
+      desc.sdp = setMediaBitrates(desc.sdp, 120000);
       console.log('local session created:', desc);
       self.peerConns[senderId].setLocalDescription(desc, function() {
         console.log('sending local desc:', self.peerConns[senderId].localDescription);
@@ -148,6 +151,42 @@ export default class Webrtc {
       console.warn(err.toString(), err);
     }
   }
-
-
 }
+
+
+
+  // 自作関数
+  // sdpとbitrateを受け取って帯域を指定する
+  const setMediaBitrates = (sdp, bitrate) => {
+    // console.log('ここでSDPの登場だ！\n'+sdp);
+    let lines = sdp.split('\n');
+    let line = -1;
+    for (let i = 0; i < lines.length; i++) {
+      if(lines[i].indexOf('m=video')===0){
+        line = i;
+        break;
+      }
+    }
+    if(line === -1){
+      console.log('Could not find the m line for video');
+      return sdp;
+    }
+
+    console.log('Found the m line for video at line : ' + line);
+    line ++;
+    while(lines[line].indexOf('i=') === 0 || lines[line].indexOf('c=')===0){
+      line++;
+    }
+    // ビットレート設定を挿入するlineを発見
+    if(lines[line].indexOf('b') === 0){
+      console.log('Replace b line at line ' + line);
+      lines[line] = 'b=AS:'+ bitrate;
+      return lines.join('\n');
+    }
+    
+    console.log('Adding new b line before line ' + line);
+    let newLines = lines.slice(0,line);
+    newLines.push('b=AS:' + bitrate);
+    newLines = newLines.concat(lines.slice(line, lines.length));
+    return  newLines.join('\n');
+  }
