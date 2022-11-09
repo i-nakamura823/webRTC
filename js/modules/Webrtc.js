@@ -73,7 +73,7 @@ export default class Webrtc {
       console.log('Creating an offer');
       this.peerConns[socketId].createOffer(function (desc) {
         // 帯域の制限？
-        desc.sdp = setMediaBitrates(desc.sdp, 120000);
+        desc.sdp = setMediaBitrates(desc.sdp, 200000);
         console.log('local session created:', desc);
         self.peerConns[socketId].setLocalDescription(desc, function() {
           console.log('sending local desc:', self.peerConns[socketId].localDescription);
@@ -97,7 +97,7 @@ export default class Webrtc {
     this.peerConns[senderId].setRemoteDescription(new RTCSessionDescription(message), function() {},this.logError);
 
     this.peerConns[senderId].createAnswer(function (desc) {
-      desc.sdp = setMediaBitrates(desc.sdp, 120000);
+      desc.sdp = setMediaBitrates(desc.sdp, 200000);
       console.log('local session created:', desc);
       self.peerConns[senderId].setLocalDescription(desc, function() {
         console.log('sending local desc:', self.peerConns[senderId].localDescription);
@@ -187,6 +187,7 @@ export default class Webrtc {
     console.log('Adding new b line before line ' + line);
     let newLines = lines.slice(0,line);
     newLines.push('b=AS:' + bitrate);
+    newLines.push('b=TIAS:' + bitrate);
     newLines = newLines.concat(lines.slice(line, lines.length));
     return  newLines.join('\n');
   }
