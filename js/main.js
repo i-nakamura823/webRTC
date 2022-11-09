@@ -88,16 +88,16 @@ socket.on('bye', function(socketId) {
 
 const mediaStreamConstraints = {
   // video: true
-  video: {
-    width: {ideal: 3840},
-    height: {ideal: 2160},
-    frameRate: {ideal: 60},
-  },
   // video: {
-  //   width: 3840,
-  //   height: 2160,
-  //   frameRate: 60,
+  //   width: {ideal: 3840},
+  //   height: {ideal: 2160},
+  //   frameRate: {ideal: 60},
   // },
+  video: {
+    width: {min : 3840},
+    height: {min: 2160},
+    frameRate: {min : 60},
+  },
 }
 
 const localVideo = document.getElementById('localVideo')
