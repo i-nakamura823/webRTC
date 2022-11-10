@@ -147,7 +147,9 @@ function gotLocalMediaStream(mediaStream, hint) {
   callButton.disabled = false  // Enable call button.
 
   stream.localStream = localStream
-  // stream.contentHint = 'motion';  // streamにヒントを渡す
+  // chromeだったらcontentHintは指定できるので、
+  // motionにするとビットレートを上げることができる
+  stream.contentHint = 'motion';  // streamにヒントを渡す
 }
 
 // Handles error by logging a message to the console.
