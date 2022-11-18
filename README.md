@@ -7,13 +7,15 @@ nodemon index.js
 
 ## TODO
 - create or join のメッセージ後の処理がうまく動いていない
+↑ 配列の構造を変更して解消
 
 ## httpsサーバーの起動
 ```
 http-server -c-1 . --ssl --key .\ssl\server.key --cert .\ssl\server.crt
 ```
+鍵はローカルに保存
 
-## シグナルサーバの起動
+## シグナリングサーバの起動
 ```
 nodemon server.js
 ```
