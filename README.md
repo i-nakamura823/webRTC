@@ -11,7 +11,8 @@ nodemon index.js
 ↑ 配列の構造を変更して解消
 
 - 十分なビットレートが出ないのは使用しているデバイスの問題っぽい
-- contentHintの導入
+- contentHintの導入 [参考文献](https://note.com/skyway/n/n55d6082ae0e7) 
+（motion、detail、textを指定すると、帯域制限時に自動調整される）
 
 ## httpsサーバーの起動
 ```
