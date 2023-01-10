@@ -30,7 +30,9 @@ wscat -c wss://localhost:3000 -no-check
 ```
 
 ## 参考文献
-- httpsの通信
+- httpsの通信 
 [kurodakazumichi/youtube](https://github.com/kurodakazumichi/youtube/tree/main/IntruductionToWebRTC)
-- 複数人でのwebRTC通信
+- 複数人でのwebRTC通信 
 [WebRTCを使って複数人がビデオチャットできるデモを作った。](https://qiita.com/h-nasu/items/908439f2fed3cda7913fhttps://qiita.com/h-nasu/items/908439f2fed3cda7913f)
+- WebRTCに関する分かりやすい記事 
+[WebRTC徹底解説](https://zenn.dev/yuki_uchida/books/c0946d19352af5/viewer/320c67)
