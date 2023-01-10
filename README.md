@@ -36,3 +36,8 @@ wscat -c wss://localhost:3000 -no-check
 [WebRTCを使って複数人がビデオチャットできるデモを作った。](https://qiita.com/h-nasu/items/908439f2fed3cda7913fhttps://qiita.com/h-nasu/items/908439f2fed3cda7913f)
 - WebRTCに関する分かりやすい記事 
 [WebRTC徹底解説](https://zenn.dev/yuki_uchida/books/c0946d19352af5/viewer/320c67)
+- WebRTCのパラメータいじれるやつ 
+[WebRTC samples Constraints & statistics](https://webrtc.github.io/samples/src/content/peerconnection/constraints/)
+- 動的な解像度・フレームレート制御 
+[WebRTCでビデオ通話中に映像の解像度やフレームレートを動的に変更する方法](https://qiita.com/yusuke84/items/35750017a6b12199aa39)
+
